@@ -1,4 +1,6 @@
 export interface Post {
+  categories: string
+  publishedAt: string
   _id: string
   _createdAt: string
   title: string
@@ -33,4 +35,10 @@ export interface Comment {
   _rev: string
   _type: string
   _updatedAt: string
+}
+
+export interface Category {
+  _id: string
+  _ref: string
+  title: string
 }
