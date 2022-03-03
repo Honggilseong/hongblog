@@ -17,7 +17,7 @@ const Home = ({ posts, categories }: Props) => {
   const [searchPost, searchPostSet] = useState('')
   const [isCategory, isCategorySet] = useState('')
   return (
-    <div className="h-full w-full text-black">
+    <div className="h-full w-full dark:text-white">
       <Head>
         <title>Hong's Blog</title>
         <link rel="icon" href="/favicon.ico" />

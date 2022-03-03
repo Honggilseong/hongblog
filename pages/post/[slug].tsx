@@ -47,7 +47,7 @@ function PostSlug({ post }: Props) {
         src={urlFor(post.mainImage).url()}
         alt="postMainImage"
       />
-      <article className="mx-auto mt-4 max-w-3xl border-2 border-white p-5">
+      <article className="mx-auto mt-4 max-w-3xl  p-5">
         <h1 className="mt-10 mb-3 text-3xl">{post.title}</h1>
         <div className="flex items-center space-x-2">
           <img
@@ -96,7 +96,7 @@ function PostSlug({ post }: Props) {
           <span>닉네임</span>
           <input
             {...register('name', { required: true })}
-            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring"
+            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring dark:border-0"
             type="text"
             name="name"
           />
@@ -105,7 +105,7 @@ function PostSlug({ post }: Props) {
           <span className="my-2">댓글</span>
           <textarea
             {...register('comment', { required: true })}
-            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring"
+            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring dark:border-0"
             rows={3}
           />
         </label>
