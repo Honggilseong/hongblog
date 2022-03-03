@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import CategoryBar from '../components/CategoryBar'
 import Header from '../components/Header'
-import Posts from '../components/Posts'
+import PostRender from '../components/PostRender'
 import mainImage from '../public/main.jpg'
 import { sanityClient, urlFor } from '../sanity'
 import { Post, Category } from '../typings'
@@ -52,7 +52,7 @@ const Home = ({ posts, categories }: Props) => {
                     )
                   )
                   .map((post) => {
-                    return <Posts post={post} />
+                    return <PostRender post={post} />
                   })
               : posts
                   .filter((searchWord) => {
@@ -68,7 +68,7 @@ const Home = ({ posts, categories }: Props) => {
                     }
                   })
                   .map((post) => {
-                    return <Posts post={post} />
+                    return <PostRender post={post} />
                   })}
           </div>
         </div>

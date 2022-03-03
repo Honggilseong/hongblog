@@ -1,3 +1,4 @@
+import moment from 'moment'
 import Link from 'next/link'
 import React from 'react'
 import { urlFor } from '../sanity'
@@ -5,7 +6,7 @@ import { Category, Post } from '../typings'
 interface Props {
   post: Post
 }
-function Posts({ post }: Props) {
+function PostRender({ post }: Props) {
   return (
     <Link key={post._id} href={`/post/${post.slug.current}`}>
       <div className="group cursor-pointer overflow-hidden border-2">
@@ -17,11 +18,13 @@ function Posts({ post }: Props) {
         )}
         <div className="justify-between p-5">
           <p className="text-lg font-bold ">{post.title}</p>
-          <p>{post.publishedAt}</p>
+          <p className=" text-gray-400">
+            {moment(post.publishedAt).format('YY-DD-MM')}
+          </p>
         </div>
       </div>
     </Link>
   )
 }
 
-export default Posts
+export default PostRender
