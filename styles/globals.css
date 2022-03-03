@@ -4,8 +4,8 @@
 
 #toggle-switch::after {
   content: '';
-  @apply absolute left-0 top-0 h-9 w-9 scale-110 transform rounded-full bg-blue-500 transition duration-200;
+  @apply absolute left-0 top-0 h-7 w-7 scale-110 transform rounded-full bg-blue-500 transition duration-200;
 }
 #toggle-switch:checked::after {
-  @apply translate-x-10 scale-110 transform bg-black;
+  @apply translate-x-6 scale-110 transform bg-black;
 }

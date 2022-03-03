@@ -25,7 +25,7 @@ function Header() {
           <input
             type="checkbox"
             id="toggle-switch"
-            className="peer relative flex h-10 w-20 cursor-pointer appearance-none items-center justify-evenly rounded-full border-2 bg-white bg-opacity-5 transition duration-200 checked:bg-gray-600"
+            className="peer relative hidden h-8 w-14 cursor-pointer appearance-none items-center justify-evenly rounded-full border-2 bg-white bg-opacity-5 transition duration-200 checked:bg-gray-600 md:flex"
             checked={theme === 'light' ? false : true}
           />
 
