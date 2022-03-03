@@ -1,5 +1,5 @@
 export interface Post {
-  categories: string
+  categories: Category[]
   publishedAt: string
   _id: string
   _createdAt: string
@@ -39,6 +39,6 @@ export interface Comment {
 
 export interface Category {
   _id: string
-  _ref: string
+  _ref?: string
   title: string
 }

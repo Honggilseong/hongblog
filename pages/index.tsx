@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CategoryBar from '../components/CategoryBar'
 import Header from '../components/Header'
+import Posts from '../components/Posts'
 import mainImage from '../public/main.jpg'
 import { sanityClient, urlFor } from '../sanity'
 import { Post, Category } from '../typings'
@@ -16,6 +17,12 @@ interface Props {
 const Home = ({ posts, categories }: Props) => {
   const [searchPost, searchPostSet] = useState('')
   const [isCategory, isCategorySet] = useState('')
+  useEffect(() => {
+    isCategorySet('')
+  }, [searchPost])
+  useEffect(() => {
+    searchPostSet('')
+  }, [isCategory])
   return (
     <div className="h-full w-full dark:text-white">
       <Head>
@@ -33,42 +40,44 @@ const Home = ({ posts, categories }: Props) => {
               type="text"
               onChange={(event) => searchPostSet(event.target.value)}
               placeholder="검색어를 입력해주세요."
+              value={searchPost}
             />
           </div>
           <div className="mt-6 grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-0 lg:grid-cols-3">
-            {posts
-              .filter((searchWord) => {
-                if (!searchWord) {
-                  return searchWord
-                } else if (
-                  searchWord.title
-                    .toLowerCase()
-                    .trim()
-                    .includes(searchPost.toLowerCase().trim())
-                ) {
-                  return searchWord
-                }
-              })
-              .map((post) => (
-                <Link key={post._id} href={`/post/${post.slug.current}`}>
-                  <div className="group cursor-pointer overflow-hidden border-2">
-                    {post.mainImage && (
-                      <img
-                        className="h-60 w-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-105"
-                        src={urlFor(post.mainImage).url()}
-                      />
-                    )}
-                    <div className="justify-between p-5">
-                      <p className="text-lg font-bold ">{post.title}</p>
-                      <p>{post.publishedAt}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+            {isCategory
+              ? posts
+                  .filter((post) =>
+                    post.categories.some(
+                      (category) => category._ref === isCategory
+                    )
+                  )
+                  .map((post) => {
+                    return <Posts post={post} />
+                  })
+              : posts
+                  .filter((searchWord) => {
+                    if (!searchWord) {
+                      return searchWord
+                    } else if (
+                      searchWord.title
+                        .toLowerCase()
+                        .trim()
+                        .includes(searchPost.toLowerCase().trim())
+                    ) {
+                      return searchWord
+                    }
+                  })
+                  .map((post) => {
+                    return <Posts post={post} />
+                  })}
           </div>
         </div>
         <div className="hidden w-72 p-5 md:inline-flex">
-          <CategoryBar categories={categories} isCategorySet={isCategorySet} />
+          <CategoryBar
+            categories={categories}
+            isCategorySet={isCategorySet}
+            searchPostSet={searchPostSet}
+          />
         </div>
       </div>
     </div>
