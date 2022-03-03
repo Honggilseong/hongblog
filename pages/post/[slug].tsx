@@ -67,11 +67,10 @@ function PostSlug({ post }: Props) {
               h1: (props: any) => (
                 <h1 className="my-5 text-2xl font-bold" {...props} />
               ),
-              h2: (props: any) => (
-                <h2 className="my-5 ml-4 font-bold " {...props} />
-              ),
+              h2: (props: any) => <h2 className="my-5 font-bold " {...props} />,
+              h3: (props: any) => <h3 className="my-5 font-bold " {...props} />,
               blockquote: ({ children }: any) => (
-                <li className="ml-4 list-disc ">{children}</li>
+                <li className="my-2 ml-4 list-disc ">{children}</li>
               ),
               link: ({ href, children }: any) => (
                 <a href={href} className="text-white hover:underline">
