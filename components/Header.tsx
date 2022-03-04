@@ -26,7 +26,7 @@ function Header() {
             type="checkbox"
             id="toggle-switch"
             className="peer relative hidden h-8 w-14 cursor-pointer appearance-none items-center justify-evenly rounded-full border-2 bg-white bg-opacity-5 transition duration-200 checked:bg-gray-600 md:flex"
-            checked={theme === 'light' ? false : true}
+            defaultChecked={theme === 'light' ? false : true}
           />
 
           {/* <Image

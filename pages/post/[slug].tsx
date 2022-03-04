@@ -5,6 +5,8 @@ import PortableText from 'react-portable-text'
 import Header from '../../components/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import imageGreenCheck from '../../public/green_check.png'
+import Image from 'next/image'
 
 interface Props {
   post: Post
@@ -36,6 +38,7 @@ function PostSlug({ post }: Props) {
       })
       .catch((error) => {
         console.log('addCommentError! =>', error)
+        alert('작성에 실패하였습니다.')
         isSubmittedSet(false)
       })
   }
@@ -82,53 +85,78 @@ function PostSlug({ post }: Props) {
         </div>
       </article>
       <hr className="my-5 mx-auto max-w-lg border border-blue-500" />
-      <form
-        className="mx-auto max-w-2xl p-5 md:p-0"
-        onSubmit={handleSubmit(addCommentHandler)}
-      >
-        <h3 className="mb-4 text-2xl font-bold">
-          이 게시글이 마음에 드셨거나 의견이 있으신가요?
-        </h3>
-        <h3 className=" mb-4 underline">댓글을 남겨주세요!</h3>
-        <input {...register('_id')} type="hidden" name="_id" value={post._id} />
-        <label>
-          <span>닉네임</span>
-          <input
-            {...register('name', { required: true })}
-            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring dark:border-0"
-            type="text"
-            name="name"
-          />
-        </label>
-        <label>
-          <span className="my-2">댓글</span>
-          <textarea
-            {...register('comment', { required: true })}
-            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring dark:border-0"
-            rows={3}
-          />
-        </label>
-        <input
-          type="submit"
-          className="focus:shadow-outline mt-4 cursor-pointer rounded bg-blue-400 py-2 px-4 font-bold text-white shadow hover:bg-blue-500 focus:outline-none"
-        />
-      </form>
-      <div className="mx-auto  max-w-2xl p-5 md:p-0">
-        {errors.name && <p className=" text-red-600">이름을 적어주세요</p>}
-        {errors.comment && <p className=" text-red-600">댓글을 적어주세요.</p>}
-      </div>
+      {isSubmitted ? (
+        <div className="mx-auto flex max-w-2xl flex-col items-center p-5 md:p-0">
+          <Image src={imageGreenCheck} height={100} width={100} />
+          <h3 className="my-4 text-2xl font-bold">
+            댓글을 작성해 주셔서 감사합니다.
+          </h3>
+          <p>댓글은 관리자 검토후에 작성이 완료됩니다.</p>
+        </div>
+      ) : (
+        <>
+          <form
+            className="mx-auto max-w-2xl p-5 md:p-0"
+            onSubmit={handleSubmit(addCommentHandler)}
+          >
+            <h3 className="mb-4 text-2xl font-bold">
+              이 게시글이 마음에 드셨거나 의견이 있으신가요?
+            </h3>
+            <h3 className=" mb-4 underline">댓글을 남겨주세요!</h3>
+            <input
+              {...register('_id')}
+              type="hidden"
+              name="_id"
+              value={post._id}
+            />
+            <label>
+              <span>닉네임</span>
+              <input
+                {...register('name', { required: true })}
+                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring dark:border-0"
+                type="text"
+                name="name"
+              />
+            </label>
+            <label>
+              <span className="my-2">댓글</span>
+              <textarea
+                {...register('comment', { required: true })}
+                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring dark:border-0"
+                rows={3}
+              />
+            </label>
+            <input
+              type="submit"
+              className="focus:shadow-outline mt-4 cursor-pointer rounded bg-blue-400 py-2 px-4 font-bold text-white shadow hover:bg-blue-500 focus:outline-none"
+            />
+          </form>
+          <div className="mx-auto  max-w-2xl p-5 md:p-0">
+            {errors.name && <p className=" text-red-600">이름을 적어주세요</p>}
+            {errors.comment && (
+              <p className=" text-red-600">댓글을 적어주세요.</p>
+            )}
+          </div>
+        </>
+      )}
       <hr className="my-5 mx-auto max-w-lg border border-blue-500" />
       <section className=" mx-auto max-w-2xl p-5 md:p-0">
         <h3 className=" mb-5 text-xl font-bold">댓글</h3>
 
-        {post.comments.map((comment) => (
-          <div className=" mb-2 border-b-2">
-            <p>
-              <span className="font-bold">{comment.name}</span>:{' '}
-              {comment.comment}
-            </p>
+        {post.comments.length !== 0 ? (
+          post.comments.map((comment) => (
+            <div key={comment._id} className=" mb-2 border-b-2">
+              <p>
+                <span className="font-bold">{comment.name}</span>:{' '}
+                {comment.comment}
+              </p>
+            </div>
+          ))
+        ) : (
+          <div className="h-28">
+            <p className="text-gray-400">작성된 댓글이 없습니다.</p>
           </div>
-        ))}
+        )}
       </section>
     </div>
   )
