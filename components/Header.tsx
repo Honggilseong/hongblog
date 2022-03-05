@@ -7,9 +7,6 @@ import { useEffect } from 'react'
 
 function Header() {
   const { theme, setTheme } = useTheme()
-  useEffect(() => {
-    console.log(theme)
-  }, [theme])
   return (
     <header className=" mx-auto max-w-7xl p-5">
       <div className="flex items-center justify-between">

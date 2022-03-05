@@ -52,7 +52,7 @@ const Home = ({ posts, categories }: Props) => {
                     )
                   )
                   .map((post) => {
-                    return <PostRender post={post} />
+                    return <PostRender key={post._id} post={post} />
                   })
               : posts
                   .filter((searchWord) => {
@@ -68,7 +68,7 @@ const Home = ({ posts, categories }: Props) => {
                     }
                   })
                   .map((post) => {
-                    return <PostRender post={post} />
+                    return <PostRender key={post._id} post={post} />
                   })}
           </div>
         </div>
