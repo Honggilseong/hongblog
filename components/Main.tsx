@@ -112,9 +112,10 @@ function Main({ posts, categories }: Props) {
             pageCount={currentPage}
             onPageChange={handlePageClick}
             className="mt-4 flex cursor-pointer items-center justify-center"
-            previousClassName="w-10 h-10 flex justify-center items-center "
-            nextClassName="w-10 h-10 flex justify-center items-center"
+            previousClassName="w-10 h-10 flex justify-center items-center dark:bg-black dark:text-white"
+            nextClassName="w-10 h-10 flex justify-center items-center dark:bg-black dark:text-white"
             pageClassName="w-10 h-10 flex justify-center items-center bg-blue-400 border text-white dark:bg-black"
+            pageLinkClassName="w-10 h-10 flex justify-center items-center "
             disabledClassName="bg-white"
             pageRangeDisplayed={4}
           />
