@@ -113,7 +113,7 @@ function PostSlug({ post }: Props) {
               <span>닉네임</span>
               <input
                 {...register('name', { required: true })}
-                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring dark:border-0"
+                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-blue-400 focus:ring dark:border-0 dark:bg-slate-600"
                 type="text"
                 name="name"
               />
@@ -122,7 +122,7 @@ function PostSlug({ post }: Props) {
               <span className="my-2">댓글</span>
               <textarea
                 {...register('comment', { required: true })}
-                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring dark:border-0"
+                className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none  ring-blue-400 focus:ring dark:border-0 dark:bg-slate-600"
                 rows={3}
               />
             </label>

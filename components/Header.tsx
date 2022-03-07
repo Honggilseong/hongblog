@@ -1,9 +1,7 @@
 import { useTheme } from 'next-themes'
-import Image from 'next/image'
 import Link from 'next/link'
 import iconSun from '../public/sun.png'
 import iconMoon from '../public/moon.png'
-import { useEffect } from 'react'
 
 function Header() {
   const { theme, setTheme } = useTheme()

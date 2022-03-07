@@ -86,7 +86,7 @@ function Main({ posts, categories }: Props) {
                     return <PostRender key={post._id} post={post} />
                   })
             : currentItems.map((post: any) => (
-                <Link key={post._id} href={`/post/${post.slug}`}>
+                <Link key={post._id} href={`/post/${post.slug.current}`}>
                   <div className="group cursor-pointer overflow-hidden border-2">
                     {post.mainImage && (
                       <img
