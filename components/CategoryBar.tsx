@@ -3,14 +3,25 @@ import { Category } from '../typings'
 
 interface Props {
   categories: [Category]
-  isCategorySet: Dispatch<SetStateAction<string>>
+  categorySearchSet: Dispatch<SetStateAction<string>>
   searchPostSet: Dispatch<SetStateAction<string>>
+  isPostsSearchSet: Dispatch<SetStateAction<boolean>>
 }
 
-function CategoryBar({ categories, isCategorySet, searchPostSet }: Props) {
-  const onCategoriesClickHandler = (category: string) => {
+function CategoryBar({
+  categories,
+  categorySearchSet,
+  searchPostSet,
+  isPostsSearchSet,
+}: Props) {
+  const categoriesClickHandler = (category: string) => {
     console.log(category)
-    isCategorySet(category)
+    categorySearchSet(category)
+    searchPostSet('')
+    isPostsSearchSet(true)
+  }
+  const seeAllThePostsClickHandler = () => {
+    isPostsSearchSet(false)
     searchPostSet('')
   }
   return (
@@ -19,7 +30,7 @@ function CategoryBar({ categories, isCategorySet, searchPostSet }: Props) {
       <hr className=" border-1 mb-6 border-black" />
       <p
         className="mb-1 cursor-pointer hover:text-gray-300"
-        onClick={() => onCategoriesClickHandler('')}
+        onClick={() => seeAllThePostsClickHandler()}
       >
         전체 게시글
       </p>
@@ -27,7 +38,7 @@ function CategoryBar({ categories, isCategorySet, searchPostSet }: Props) {
         <div
           key={category._id}
           className=" mb-1 cursor-pointer hover:text-gray-300"
-          onClick={() => onCategoriesClickHandler(category._id)}
+          onClick={() => categoriesClickHandler(category._id)}
         >
           <p>{category.title}</p>
         </div>
