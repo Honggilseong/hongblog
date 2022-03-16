@@ -4,7 +4,7 @@ import iconSun from '../public/sun.png'
 import iconMoon from '../public/moon.png'
 
 function Header() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
   return (
     <header className=" mx-auto max-w-7xl p-5">
       <div className="flex items-center justify-between">
@@ -15,13 +15,13 @@ function Header() {
         </Link>
         <label
           htmlFor="toggle-switch"
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
         >
           <input
             type="checkbox"
             id="toggle-switch"
-            className="peer relative hidden h-8 w-14 cursor-pointer appearance-none items-center justify-evenly rounded-full border-2 bg-white bg-opacity-5 transition duration-200 checked:bg-gray-600 md:flex"
-            defaultChecked={theme === 'light' ? false : true}
+            className={`peer relative hidden h-8 w-14 cursor-pointer appearance-none items-center justify-evenly rounded-full border-2 bg-white bg-opacity-5 transition duration-200 checked:bg-gray-600 md:flex`}
+            defaultChecked={resolvedTheme === 'light' ? false : true}
           />
 
           {/* <Image
