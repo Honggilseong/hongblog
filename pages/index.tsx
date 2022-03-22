@@ -25,7 +25,7 @@ const Home = ({ posts, categories }: Props) => {
 export default Home
 
 export const getServerSideProps = async () => {
-  const postQuery = `*[_type == "post"]{
+  const postQuery = `*[_type == "post"] | order(publishedAt desc){
     _id,
     title,
     slug,
