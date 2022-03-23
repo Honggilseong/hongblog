@@ -17,7 +17,7 @@ function PostRender({ post }: Props) {
           />
         )}
         <div className="justify-between p-5">
-          <p className="text-lg font-bold ">{post.title}</p>
+          <p className=" truncate text-lg font-bold">{post.title}</p>
           <p className=" text-gray-400">
             {moment(post.publishedAt).format('YY-DD-MM')}
           </p>
