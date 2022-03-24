@@ -1,27 +1,17 @@
-# Next.js + Tailwind CSS Example
+**useTheme**을 사용하여 Dark-mode 개발
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+**getStaticPaths**로 Static한 페이지를 미리 설정 하여
 
-## Preview
+**Dynamic routing** 사용
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+**PortableText** 사용으로 다양한 텍스트 태그 변환
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+**Pagination** 기능 구현
 
-## Deploy your own
+**Google Analytics**로 유저 행동 분석
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+**게시글 검색** **카테고리 검색** 기능 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+**유저 댓글기능** ⇒ 백엔드에서 관리자 승인시에 게시 가능
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+기능 게시글을 읽을 때 **이전 게시글** **다음 게시글**
