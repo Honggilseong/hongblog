@@ -108,6 +108,7 @@ function Main({ posts, categories }: Props) {
       </div>
       <div className="hidden w-72 p-5 md:inline-flex">
         <CategoryBar
+          posts={posts}
           categories={categories}
           categorySearchSet={categorySearchSet}
           searchPostSet={searchPostSet}

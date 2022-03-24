@@ -1,11 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Category } from '../typings'
+import { Category, Post } from '../typings'
 
 interface Props {
   categories: [Category]
   categorySearchSet: Dispatch<SetStateAction<string>>
   searchPostSet: Dispatch<SetStateAction<string>>
   isPostsSearchSet: Dispatch<SetStateAction<boolean>>
+  posts: [Post]
 }
 
 function CategoryBar({
@@ -13,6 +14,7 @@ function CategoryBar({
   categorySearchSet,
   searchPostSet,
   isPostsSearchSet,
+  posts,
 }: Props) {
   const categoriesClickHandler = (category: string) => {
     console.log(category)
@@ -24,6 +26,7 @@ function CategoryBar({
     isPostsSearchSet(false)
     searchPostSet('')
   }
+  console.log(posts)
   return (
     <div>
       <h1 className=" font-bold">태그 목록</h1>
@@ -40,7 +43,17 @@ function CategoryBar({
           className=" mb-1 cursor-pointer hover:text-gray-300"
           onClick={() => categoriesClickHandler(category._id)}
         >
-          <p>{category.title}</p>
+          <p>
+            {category.title}(
+            {
+              posts.filter((post) =>
+                post.categories.some(
+                  (postCategory) => postCategory._ref === category._id
+                )
+              ).length
+            }
+            )
+          </p>
         </div>
       ))}
     </div>
