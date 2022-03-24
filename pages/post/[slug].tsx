@@ -1,12 +1,13 @@
 import { GetStaticProps } from 'next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import PortableText from 'react-portable-text'
-import Header from '../../components/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import PortableText from 'react-portable-text'
+import Header from '../../components/Header'
 import imageGreenCheck from '../../public/green_check.png'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
   post: Post
@@ -18,6 +19,8 @@ interface CommentInput {
 }
 
 function PostSlug({ post }: Props) {
+  const [previousPost, previousPostSet] = useState<Post | null>(null)
+  const [nextPost, nextPostSet] = useState<Post | null>(null)
   const [isSubmitted, isSubmittedSet] = useState(false)
   const {
     register,
@@ -25,6 +28,23 @@ function PostSlug({ post }: Props) {
     formState: { errors },
   } = useForm<CommentInput>()
 
+  useEffect(() => {
+    console.log(post._id)
+    const getPreviousNextPosts = async () => {
+      const query = `*[_type == "post" && _id == '${post._id}'][0]{
+        'previousPost': *[_type == "post" && publishedAt < ^.publishedAt] | order(publishedAt desc)[0],
+        'nextPost': *[_type == "post" && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]
+      }`
+
+      const fetchPostData = await sanityClient.fetch(query, {
+        slug: post.slug.current,
+      })
+
+      previousPostSet(fetchPostData?.previousPost)
+      nextPostSet(fetchPostData?.nextPost)
+    }
+    getPreviousNextPosts()
+  }, [post])
   const addCommentHandler: SubmitHandler<CommentInput> = async (
     userComment
   ) => {
@@ -61,7 +81,7 @@ function PostSlug({ post }: Props) {
           <p>{post.author.name}</p>
         </div>
 
-        <div className=" mt-10">
+        <div className="mt-10">
           <PortableText
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
@@ -84,6 +104,28 @@ function PostSlug({ post }: Props) {
           />
         </div>
       </article>
+      <section className="mx-auto mt-5 flex max-w-3xl justify-between p-5 md:p-0 ">
+        {nextPost && (
+          <Link key={nextPost?._id} href={`/post/${nextPost?.slug.current}`}>
+            <div className="cursor-pointer ">
+              <p className="font-bold">다음 게시글</p>
+              <p>{JSON.stringify(nextPost.title)}</p>
+            </div>
+          </Link>
+        )}
+        {!nextPost && <div></div>}
+        {previousPost && (
+          <Link
+            key={previousPost?._id}
+            href={`/post/${previousPost?.slug.current}`}
+          >
+            <div className="cursor-pointer">
+              <p className="flex flex-row-reverse font-bold">이전 게시글</p>
+              <p>{JSON.stringify(previousPost.title)}</p>
+            </div>
+          </Link>
+        )}
+      </section>
       <hr className="my-5 mx-auto max-w-lg border border-blue-500" />
       {isSubmitted ? (
         <div className="mx-auto flex max-w-2xl flex-col items-center p-5 md:p-0">
@@ -202,7 +244,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       slug,
       body
       }`
-
   const post = await sanityClient.fetch(query, { slug: params?.slug })
   if (!post) {
     return {
