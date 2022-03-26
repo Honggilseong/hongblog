@@ -96,7 +96,7 @@ function PostSlug({ post }: Props) {
                 <li className="my-2 ml-4 list-disc ">{children}</li>
               ),
               link: ({ href, children }: any) => (
-                <a href={href} className="text-white hover:underline">
+                <a href={href} className="text-blue-700 hover:underline">
                   {children}
                 </a>
               ),
